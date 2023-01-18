@@ -15,8 +15,8 @@ on:
   #  branches: 
   #    - master
 
-  #schedule:
-  #  - cron: 0 8 * * 5
+  schedule:
+    - cron: 0 0 1 * *
   
   #watch:
   #  types: [started]
@@ -65,7 +65,8 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        echo "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
+      #  echo "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
+        echo "src-git kenzo8 https://github.com/kenzok8/openwrt-packages.git" >> ./feeds.conf.default
         
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -84,6 +85,11 @@ jobs:
     #  working-directory: ./openwrt
     #  run: |
     #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
+
+    #- name: Import external feeds - kenzok8
+    #  working-directory: ./openwrt
+    #  run: |
+    #    git clone https://github.com/kenzok8/openwrt-packages.git package/kenzok8
 
     - name: Configuration Customization - Build_x86_64
       env:
